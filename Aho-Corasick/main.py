@@ -1,6 +1,5 @@
 from collections import defaultdict, deque
 
-
 class AhoCorasick:
     def __init__(self):
         """Inicjalizacja podstawowych struktur danych."""
