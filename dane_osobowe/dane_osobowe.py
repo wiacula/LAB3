@@ -1,30 +1,31 @@
+from dataclasses import dataclass, asdict
 import json
 
-
+@dataclass
 class PersonalData:
+    first_name: str
+    last_name: str
+    address: str
+    postal_code: str
+    pesel: str
 
-    def __init__(self, first_name, last_name, address, postal_code, pesel):
-
-        self.first_name = first_name
-        self.last_name = last_name
-        self.address = address
-        self.postal_code = postal_code
-        self.pesel = pesel
-
-    def to_json(self, file_path):
+    def to_json(self, file_path: str) -> None:
+        """Zapisuje dane obiektu do pliku JSON."""
         with open(file_path, 'w', encoding='utf-8') as f:
             # Konwersja obiektu do słownika i zapis w formacie JSON
-            json.dump(self.__dict__, f, ensure_ascii=False, indent=4)
+            json.dump(asdict(self), f, ensure_ascii=False, indent=4)
 
     @classmethod
-    def from_json(cls, file_path):
+    def from_json(cls, file_path: str):
+        """Tworzy nowy obiekt PersonalData z pliku JSON."""
         with open(file_path, 'r', encoding='utf-8') as f:
             # Odczyt danych z pliku JSON
             data = json.load(f)
             # Tworzenie nowej instancji klasy z użyciem odczytanych danych
             return cls(**data)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
+        """Reprezentacja tekstowa obiektu."""
         return (f"PersonalData(Imie: {self.first_name}, Nazwisko: {self.last_name}, "
                 f"Adres: {self.address}, Kod Pocztowy: {self.postal_code}, Pesel: {self.pesel})")
 
